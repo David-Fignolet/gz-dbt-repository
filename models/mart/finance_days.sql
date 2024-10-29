@@ -14,9 +14,9 @@ margin_data AS (
     SELECT
         orders_id,
         date_date,
-        (operational_margin + total_shipping_fees - log_cost - ship_cost) AS operational_margin,
+        (operational_margin + shipping_fee - log_cost - ship_cost) AS operational_margin,
         purchase_cost,
-        total_shipping_fees,
+        shipping_fee,
         log_cost
     FROM
         {{ ref("int_orders_operational") }}

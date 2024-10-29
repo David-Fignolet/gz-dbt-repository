@@ -20,6 +20,7 @@ SELECT
     s.orders_id,
     sh.shipping_fee,
     s.date_date,
+    sh.log_cost,
     (s.margin + sh.shipping_fee - sh.log_cost - sh.ship_cost) AS operational_margin
 FROM
     sales_margin s
