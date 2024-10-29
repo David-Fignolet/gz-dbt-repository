@@ -7,9 +7,45 @@ sources:
       - name: sales
         description: "Sales data"
         identifier: raw_gz_sales
+        columns:
+           - name: date_date
+             description: date of purchase
+           -  name: order_id
+              description: id of order
+           - name: products_id
+             description: id of product
+           - name: revenue
+           - name: quantity
+           - name: id_key
+             description: "Composite key combining orders_id and pdt_id"
+        tests:
+         - unique: 
+             column_name: "(orders_id || '_' || pdt_id)"
       - name: product
         description: "Product data"
         identifier: raw_gz_product
+        columns:
+           - name: products_id
+             description: id of products
+             tests:
+              - unique
+              - not_null
+           - name: purchase_price
+             description: how much we spent for this
+           - name: order_id
+             description: how much we spent for this
       - name: ship
         description: "Shipping data"
         identifier: raw_gz_ship
+        columns:
+           - name: orders_id
+             description: id de la commande
+             tests:
+              - unique
+              - not_null
+           -  name: shipping_fee
+              description: fees of shipping
+           - name: log_cost
+             description: cost of logs
+           - name: ship_cost
+             description: cost of shipping
