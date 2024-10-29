@@ -1,25 +1,37 @@
+-- models/mart/finance_days.sql
+
 WITH sales_data AS (
     SELECT
         date_date,
         COUNT(orders_id) AS total_transactions,
-        SUM(revenue) AS total_revenue,
-        AVG(revenue) AS average_basket,
-        SUM(quantity) AS total_quantity
+        ROUND(SUM(revenue),2) AS total_revenue,
+        ROUND(AVG(revenue),2) AS average_basket,
+        ROUND(SUM(quantity),2) AS total_quantity
     FROM
-        {{ ref("stg_raw_data__sales") }}
+        {{ ref('int_sales_margin') }}
     GROUP BY
         date_date
 ),
 margin_data AS (
     SELECT
-        orders_id,
         date_date,
-        (operational_margin + shipping_fee - log_cost - ship_cost) AS operational_margin,
-        purchase_price,
-        shipping_fee,
-        log_cost
+        ROUND(SUM(margin),2) AS total_margin,
+        ROUND(SUM(purchase_cost),2) AS total_purchase_cost
     FROM
-        {{ ref("int_orders_operational") }}
+        {{ ref('int_orders_margin') }}
+    GROUP BY
+        date_date
+),
+operational_data AS (
+    SELECT
+        date_date,
+        ROUND(SUM(operational_margin),2) AS total_operational_margin,
+        ROUND(SUM(shipping_fee),2) AS total_shipping_fees,
+        ROUND(SUM(log_cost),2) AS total_log_costs
+    FROM
+        {{ ref('int_orders_operational') }}
+    GROUP BY
+        date_date
 )
 
 SELECT
@@ -27,10 +39,10 @@ SELECT
     s.total_transactions,
     s.total_revenue,
     s.average_basket,
-    ROUND(SUM(m.operational_margin,2)) AS operational_margin,
-    ROUND(SUM(m.purchase_cost,2)) AS total_purchase_cost,
-    ROUND(SUM(m.shipping_fee,2)) AS total_shipping_fees,
-    ROUND(SUM(m.log_cost,2)) AS total_log_costs,
+    o.total_operational_margin AS operational_margin,
+    m.total_purchase_cost,
+    o.total_shipping_fees,
+    o.total_log_costs,
     s.total_quantity
 FROM
     sales_data s
@@ -38,5 +50,7 @@ JOIN
     margin_data m
 ON
     s.date_date = m.date_date
-GROUP BY
-    s.date_date, s.total_transactions, s.total_revenue, s.average_basket, s.total_quantity
+JOIN
+    operational_data o
+ON
+    s.date_date = o.date_date
