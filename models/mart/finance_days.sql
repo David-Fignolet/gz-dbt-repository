@@ -15,7 +15,7 @@ margin_data AS (
         orders_id,
         date_date,
         (operational_margin + shipping_fee - log_cost - ship_cost) AS operational_margin,
-        purchase_cost,
+        purchase_price,
         shipping_fee,
         log_cost
     FROM
