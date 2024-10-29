@@ -18,6 +18,7 @@ shipping_data AS (
 
 SELECT
     s.orders_id,
+    sh.shipping_fee,
     s.date_date,
     (s.margin + sh.shipping_fee - sh.log_cost - sh.ship_cost) AS operational_margin
 FROM
