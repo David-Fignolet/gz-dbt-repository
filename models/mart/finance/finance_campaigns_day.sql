@@ -1,6 +1,5 @@
 SELECT
-   *
-   ,c.date_date
+    c.date_date
    ,(f.operational_margin - c.ads_cost) AS ads_margin
    ,f.average_basket,
     f.operational_margin,
