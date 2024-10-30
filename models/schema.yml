@@ -57,6 +57,82 @@ sources:
             description: coûts logistiques
           - name: ship_cost
             description: coûts de transport
+      - name: adwords
+        description: "Google AdWords campaign data"
+        identifier: raw_gz_adwords
+        columns:
+          - name: date_date
+            description: "Date of the campaign"
+          - name: paid_source
+            description: "Source of the paid campaign"
+          - name: campaign_key
+            description: "Unique key for the campaign"
+          - name: camPGN_name
+            description: "Name of the campaign"
+          - name: ads_cost
+            description: "Cost of the ads"
+          - name: impression
+            description: "Number of impressions"
+          - name: click
+            description: "Number of clicks"
+
+      - name: bing
+        description: "Bing Ads campaign data"
+        identifier: raw_gz_bing
+        columns:
+          - name: date_date
+            description: "Date of the campaign"
+          - name: paid_source
+            description: "Source of the paid campaign"
+          - name: campaign_key
+            description: "Unique key for the campaign"
+          - name: camPGN_name
+            description: "Name of the campaign"
+          - name: ads_cost
+            description: "Cost of the ads"
+          - name: impression
+            description: "Number of impressions"
+          - name: click
+            description: "Number of clicks"
+
+      - name: criteo
+        description: "Criteo campaign data"
+        identifier: raw_gz_criteo
+        columns:
+          - name: date_date
+            description: "Date of the campaign"
+          - name: paid_source
+            description: "Source of the paid campaign"
+          - name: campaign_key
+            description: "Unique key for the campaign"
+          - name: camPGN_name
+            description: "Name of the campaign"
+          - name: ads_cost
+            description: "Cost of the ads"
+          - name: impression
+            description: "Number of impressions"
+          - name: click
+            description: "Number of clicks"
+
+      - name: facebook
+        description: "Facebook Ads campaign data"
+        identifier: raw_gz_facebook
+        columns:
+          - name: date_date
+            description: "Date of the campaign"
+          - name: paid_source
+            description: "Source of the paid campaign"
+          - name: campaign_key
+            description: "Unique key for the campaign"
+          - name: camPGN_name
+            description: "Name of the campaign"
+          - name: ads_cost
+            description: "Cost of the ads"
+          - name: impression
+            description: "Number of impressions"
+          - name: click
+            description: "Number of clicks"
+
 
 models: 
   - name: int_sales_margin
@@ -99,79 +175,3 @@ models:
       - name: ship_cost
         description: coûts d'expédition
 
-  - name: adwords
-    description: "Google AdWords campaign data"
-    identifier: raw_gz_adwords
-    columns:
-      - name: date_date
-        description: "Date of the campaign"
-      - name: paid_source
-        description: "Source of the paid campaign"
-      - name: campaign_key
-        description: "Unique key for the campaign"
-      - name: camPGN_name
-        description: "Name of the campaign"
-      - name: ads_cost
-        description: "Cost of the ads"
-      - name: impression
-        description: "Number of impressions"
-      - name: click
-        description: "Number of clicks"
-
-  - name: bing
-    description: "Bing Ads campaign data"
-    identifier: raw_gz_bing
-    columns:
-      - name: date_date
-        description: "Date of the campaign"
-      - name: paid_source
-        description: "Source of the paid campaign"
-      - name: campaign_key
-        description: "Unique key for the campaign"
-      - name: camPGN_name
-        description: "Name of the campaign"
-      - name: ads_cost
-        description: "Cost of the ads"
-      - name: impression
-        description: "Number of impressions"
-      - name: click
-        description: "Number of clicks"
-
-  - name: criteo
-    description: "Criteo campaign data"
-    identifier: raw_gz_criteo
-    columns:
-      - name: date_date
-        description: "Date of the campaign"
-      - name: paid_source
-        description: "Source of the paid campaign"
-      - name: campaign_key
-        description: "Unique key for the campaign"
-      - name: camPGN_name
-        description: "Name of the campaign"
-      - name: ads_cost
-        description: "Cost of the ads"
-      - name: impression
-        description: "Number of impressions"
-      - name: click
-        description: "Number of clicks"
-
-  - name: facebook
-    description: "Facebook Ads campaign data"
-    identifier: raw_gz_facebook
-    alias: facebook
-    columns:
-      - name: date_date
-        description: "Date of the campaign"
-      - name: paid_source
-        description: "Source of the paid campaign"
-      - name: campaign_key
-        description: "Unique key for the campaign"
-      - name: camPGN_name
-        description: "Name of the campaign"
-      - name: ads_cost
-        description: "Cost of the ads"
-      - name: impression
-        description: "Number of impressions"
-      - name: click
-        description: "Number of clicks"
