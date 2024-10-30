@@ -116,7 +116,7 @@ sources:
 
       - name: facebook
         description: "Facebook Ads campaign data"
-        identifier: raw_gz_facebok 
+        identifier: raw_gz_facebook
         columns:
           - name: date_date
             description: "Date of the campaign"
