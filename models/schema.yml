@@ -174,4 +174,28 @@ models:
         description: coûts de logistique
       - name: ship_cost
         description: coûts d'expédition
+        
+  - name: int_campaigns_day
+    description: "Aggregated daily campaign data"
+    columns:
+      - name: date_date
+        description: "Date of the campaign"
+        tests:
+          - not_null
+      - name: total_campaigns
+        description: "Total number of campaigns"
+        tests:
+          - not_null
+      - name: total_ads_cost
+        description: "Total cost of ads"
+        tests:
+          - not_null
+      - name: total_impressions
+        description: "Total number of impressions"
+        tests:
+          - not_null
+      - name: total_clicks
+        description: "Total number of clicks"
+        tests:
+          - not_null
 
