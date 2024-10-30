@@ -1,0 +1,104 @@
+# schema.yml
+
+version: 2
+
+sources:
+  - name: raw_data
+    schema: gz_raw_data
+    description: dataset de données brutes Greenweez
+
+    tables:
+      - name: sales
+        identifier: raw_gz_sales
+        description: liste des ventes Greenweez
+        columns:
+          - name: date_date
+            description: date d'achat
+          - name: orders_id
+            description: id de la commande 
+          - name: pdt_id
+            description: id du produit
+          - name: revenue
+            description: chiffre d'affaires de la commande
+          - name: quantity
+            description: quantité vendue
+        tests:
+          - unique:
+              column_name: "(orders_id || '_' || pdt_id)"
+        
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+        freshness:
+          warn_after: { count: 90, period: day }
+
+
+      - name: product
+        identifier: raw_gz_product
+        description: liste des produits avec prix d'achat Greenweez 
+        columns:
+          - name: products_id
+            description: id du produit
+            tests:
+              - unique
+              - not_null
+          - name: purchSE_PRICE
+            description: prix du produit
+
+      - name: ship
+        identifier: raw_gz_ship 
+        description: liste des commandes expédiées Greenweez
+        columns:
+          - name: orders_id
+            description: id de la commande
+            tests:
+              - unique
+              - not_null
+          - name: shipping_fee
+            description: frais de ports
+          - name: shipping_fee_1
+            description: frais de ports doublon
+          - name: logCost
+            description: coûts logistiques
+          - name: ship_cost
+            description: coûts de transport
+
+
+models: 
+  - name: int_sales_margin
+    description : fusion des tables sales et products, calcul marge et coût d'achat, groupée par date, order_id
+    columns:
+      - name: date_date 
+        description: date d'achat
+      - name: order_id 
+        description: numéro de la commande
+      - name: revenue
+        description: montant de la commande
+      - name: quantity
+        description: nombre de produits dans la commande
+      - name: purchase_cost
+        description: coût d'achat, prix d'achat multiplié par la quantité
+      - name: margin
+        description: marge, chiffre d'affaires - coûts d'achats
+
+  - name: int_order_operationnal
+    description: fusion des tables int_sales_margin et ship, calcul de la marge opérationnelle
+    columns: 
+      - name: date_date
+        description: date d'achat
+      - name: orders_id
+        description: numéro de commande
+      - name: revenue
+        description: montant de la commande
+      - name: quantity
+        description: nombre de produits dans la commande
+      - name: purchase_cost
+        description: coût d'achat, prix d'achat multiplié par la quantité
+      - name: margin
+        description: marge, chiffre d'affaires - coûts d'achats
+      - name: operationnal_margin,
+        description: marge en intégrant les frais de ports et coûts logistiques
+      - name: shipping_fee,
+        description: frais de transport
+      - name: logcost,
+        description: coûts de logistique
+      - name: ship_cost
+        description: coûts d'expédition
