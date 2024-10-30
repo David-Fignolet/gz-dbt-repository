@@ -1,6 +1,5 @@
 -- models/intermediate/int_campaigns.sql
 
-WITH combined_campaigns AS (
     SELECT
         date_date,
         paid_source,
@@ -44,9 +43,3 @@ WITH combined_campaigns AS (
         click
     FROM
         {{ ref("stg_raw_data__facebook") }}
-)
-
-SELECT
-    *
-FROM
-    combined_campaigns
