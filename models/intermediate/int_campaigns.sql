@@ -1,45 +1,9 @@
--- models/intermediate/int_campaigns.sql
-
-    SELECT
-        date_date,
-        paid_source,
-        campaign_key,
-        campaign_name,
-        ads_cost,
-        impression,
-        click
-    FROM
-        {{ ref("stg_raw_data__adwords") }}
-    UNION ALL
-    SELECT
-        date_date,
-        paid_source,
-        campaign_key,
-        campaign_name,
-        ads_cost,
-        impression,
-        click
-    FROM
-        {{ ref("stg_raw_data__bing") }}
-    UNION ALL
-    SELECT
-        date_date,
-        paid_source,
-        campaign_key,
-        campaign_name,
-        ads_cost,
-        impression,
-        click
-    FROM
-        {{ ref("stg_raw_data__criteo") }}
-    UNION ALL
-    SELECT
-        date_date,
-        paid_source,
-        campaign_key,
-        campaign_name,
-        ads_cost,
-        impression,
-        click
-    FROM
-        {{ ref("stg_raw_data__facebook") }}
+{{ dbt_utils.union_relations(
+    relations=[
+        ref('stg_raw_data__adwords'),
+        ref('stg_raw_data__bing'),
+        ref('stg_raw_data__criteo'),
+        ref('stg_raw_data__facebook')
+    ],
+    
+) }}
